@@ -117,3 +117,7 @@ In this case we are going to create a task for taking backup from /etc every min
 ## Task Execution
 - You can see result in dashboard.
 
+
+![demo](https://raw.githubusercontent.com/raeis-i/Ansible-Semaphore-Lab-With-Real-Example/main/screenshots/semaphore.gif)
+
+
