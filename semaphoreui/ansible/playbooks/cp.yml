@@ -1,0 +1,10 @@
+- name: Backup "/etc" directory using tar
+  hosts: all
+  become: yes
+  vars:
+    source_dir: /etc/
+    backup_file: /tmp/backup_{{ ansible_date_time.iso8601_basic }}.tar.gz
+  tasks:
+    - name: Create a tarball of the source directory
+      ansible.builtin.command:
+        cmd: "tar -czvf {{ backup_file }} -C {{ source_dir }} ."
