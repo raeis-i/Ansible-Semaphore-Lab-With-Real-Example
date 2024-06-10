@@ -3,7 +3,7 @@
 This repository creates 3 nodes for [Ansible_Semaphore](https://semui.co/) lab using Vagrant and Virtualbox.
 You can define the number of nodes in "vars.rf" and also you can change IP range.
 
-Runs Semaphore Ansible web UI in Docker Container [Official Link](https://docs.semui.co/administration-guide/installation#docker) on node1 and we will test jobs on node2 and node3.
+We run Semaphore Ansible web UI in Docker Container [Official Link](https://docs.semui.co/administration-guide/installation#docker) on node1 and we will test jobs on node2 and node3.
 
 ## Prerequisites
 
@@ -98,7 +98,7 @@ The Ansible inventory file defines the hosts and groups of hosts upon which comm
 ### Task Templates
 A task is an instance of launching an Ansible playbook. You can create the task from Task Template by clicking the button Run/Build/Deploy for the required template.[More](https://docs.semui.co/user-guide/tasks)
 
-In this case we are going to create a task for taking backup from /etc every min to see cron.[More](https://crontab-generator.org/)
+In this case we are going to create a task for taking backup from /etc and save as tar in /tmp every min to test cron.[More](https://crontab-generator.org/)
 #### Task1:Run a task every min
     - Name: Take a copy from "/etc" every minute
     - Playbook Filename: cp.yml

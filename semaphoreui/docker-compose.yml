@@ -4,7 +4,7 @@ services:
   mysql:
     restart: unless-stopped
     #image: mysql:8.0
-    image: docker.arvancloud.ir/mysql:8.0
+    image: mysql:8.0
     hostname: mysql
     volumes:
       - semaphore-mysql:/var/lib/mysql
@@ -18,7 +18,7 @@ services:
     ports:
       - 3000:3000
     #image: semaphoreui/semaphore:latest
-    image: docker.arvancloud.ir/semaphoreui/semaphore:latest
+    image: semaphoreui/semaphore:latest
     volumes:
       - ./ansible/playbooks:/tmp/playbooks/
     environment:
