@@ -15,7 +15,7 @@ Clone Project Repository
 
 
 ```bash
-$ git clone https://github.com/raeis-i/Ansible-Semaphore-Lab-With-Real-Example
+$ git clone git@github.com:raeis-i/Ansible-Semaphore-Lab-With-Real-Example.git
 
 $ cd Ansible-Semaphore-Lab-With-Real-Example
 
