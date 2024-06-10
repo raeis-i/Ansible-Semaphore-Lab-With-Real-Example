@@ -19,9 +19,9 @@ Clone Project Repository
 
 
 ```bash
-$ git clone https://github.com/raeis-i/Ansible_Semaphore_Lab_With_Real_Example
+$ git clone https://github.com/raeis-i/Ansible-Semaphore-Lab-With-Real-Example
 
-$ cd Ansible_Semaphore_Lab_With_Real_Example
+$ cd Ansible-Semaphore-Lab-With-Real-Example
 
 $ vagrant up
 
