@@ -5,9 +5,9 @@ You can define the number of nodes in "vars.rf" and also you can change IP range
 
 node1: Run Semaphore Ansible web UI in Docker Container [Official Link](https://docs.semui.co/administration-guide/installation#docker)
 
-node2: As a Database VM
+node2: 
 
-node3: As A Application VM
+node3:
 
 ## Prerequisites
 
@@ -45,6 +45,20 @@ node3                     running (virtualbox)
 - Click `Create`
 
 
+### Repositories
+
+A Repository is a place to store and manage Ansible content like playbooks and roles.[More](https://docs.semui.co/user-guide/repositories)
+
+In this case we use local as we mounted playbooks in container
+
+- Select `Repositories`
+- Select `New Repository`
+    - Name: Local
+    - URL: /tmp/playbooks/
+    - Access Key: Optional, Select from list of credentials created in previous steps
+- Click `Create`
+
+
 ### Key Stores
 The Key Store in Semaphore is used to store credentials for accessing remote Repositories, accessing remote hosts, sudo credentials, and Ansible vault passwords.
 
@@ -55,31 +69,22 @@ The Key Store in Semaphore is used to store credentials for accessing remote Rep
     - Username: vagrant
     - Password: vagrant
 
+### Environment
+The Environment section of Semaphore is a place to store additional variables for an inventory and must be stored in JSON format. All task templates require an environment to be defined even if it is empty.
+In this case we are going to Disabling host key checking.
 
-### Repositories
-
-A Repository is a place to store and manage Ansible content like playbooks and roles.[More](https://docs.semui.co/user-guide/repositories)
-
-In this case we use local as we have a playbook in container
-
-- Select `Repositories`
-- Select `New Repository`
-    - Name: RHEL 8 STIG
-    - URL: git@gitlab.test.lab:cte/rhel-8-stig.git
-        - This value can be a path to a local directory, git over ssh , or git over https
-    - Branch: main
-    - Access Key: Optional, Select from list of credentials created in previous steps
-- Click `Create`
-
+{
+    "ANSIBLE_HOST_KEY_CHECKING" : false
+}
 
 ### Inventories
 
 The Ansible inventory file defines the hosts and groups of hosts upon which commands, modules, and tasks in a playbook operate.
 
-#### Static
+
 - Select `Inventory`
 - Select `New Inventory`
-    - Name: Test
+    - Name: All
     - User Credentials: vagrant-key
     - Sudo Credentials: 
     - Type: Static
@@ -87,38 +92,24 @@ The Ansible inventory file defines the hosts and groups of hosts upon which comm
         [all]
         node2 ansible_hosts=192.168.56.2
         node3 ansible_hosts=192.168.56.3
-
-        [database]
-        node2 ansible_hosts=192.168.56.2
-
-        [application]
-        node3 ansible_hosts=192.168.56.3
         ```
-- Click `Create`
+
 
 ### Task Templates
 A task is an instance of launching an Ansible playbook. You can create the task from Task Template by clicking the button Run/Build/Deploy for the required template.[More](https://docs.semui.co/user-guide/tasks)
 
-
+In this case we are going to create a task for taking backup from /etc every min to see cron.[More](https://crontab-generator.org/)
 #### Create a Task Template
 - Select `Task Templates`
 - Select `New Template`
-    - Name: Dev Lab - RHEL 8 STIG
-    - Description: Applies the Red Hat Entperise Linux 8 STIG to hosts in the inventory
-    - Playbook Filename: 
-    - Inventory:
-    - Repository:
-    - Environment: all
-    - Vault Password:
-    - Survey Variables:
-    - View: Leave Blank (Select a `View` from the dropdown, if you set that up in the previous step)
-    - Cron: Leave Blank, Accepts Cron Time format `45 11 * * *` ,[More](https://crontab-generator.org/)
-    - Allow CLI Args in Task: Check the box
+    - Name: Copy /ect every min
+    - Playbook Filename: cp.yml
+    - Inventory:All
+    - Repository:Local
+    - Cron: * * * * *
+
 - Click `Create`
 
 ## Task Execution
-
-
-- Click `Run`
-- At this point a new view within Semaphore will open and show you the live output of the running Tasks
+- You can see result in dashboard.
 
