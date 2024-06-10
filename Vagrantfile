@@ -13,8 +13,8 @@ Vagrant.configure("2") do |config|
       node_vm.vm.provider "virtualbox" do |v|
         v.name = "Node#{node_id}"
       end
-      #Run bootstrap.sh in all nodes in order to change ssh setting
-      node_vm.vm.provision "shell", path: "./scripts/bootstrap.sh"
+      #Run bootstrap.sh in all nodes in order to change ssh setting and edit hosts
+      node_vm.vm.provision "shell", path: "./scripts/bootstrap.sh", args: [NUM_NODES, NETWORK_RANGE]
 
       #Copy files and install docker and bring up sempaphore in node 1 only install docker and docker-compose and run Semaphoreui
       if node_id == 1
